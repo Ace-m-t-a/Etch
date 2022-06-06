@@ -10,26 +10,23 @@ button.addEventListener('click', () => {
 });
 
 eraser.addEventListener('click', () => {
-   gridContainer.removeEventListener('mouseover', () => {
-      changeToBlack();
-      RGB();
-   })
+   gridContainer.removeEventListener('mouseover', RGB);
+   gridContainer.removeEventListener('mouseover',changeToBlack);
+    
    gridContainer.addEventListener('mouseover', changeToWhite);
 })
 
 black.addEventListener('click', () => {
-   gridContainer.removeEventListener('mouseover', () => {
-      RGB();
-      changeToWhite();
-   })
+   gridContainer.removeEventListener('mouseover',changeToWhite);
+   gridContainer.removeEventListener('mouseover', RGB);
+    
    gridContainer.addEventListener('mouseover', changeToBlack);
 })
 
 rgb.addEventListener('click', () => {
-   gridContainer.removeEventListener('mouseover', () => {
-      changeToBlack();
-      changeToWhite();
-   })
+   gridContainer.removeEventListener('mouseover',changeToBlack);
+   gridContainer.removeEventListener('mouseover',changeToWhite);
+    
    gridContainer.addEventListener('mouseover', RGB);
 })
 
@@ -50,8 +47,10 @@ function RGB(e){
 
 function newGrid(){
    gridContainer.textContent = ' '
-   let user = prompt("Enter the size of grid you want (max 100): ");
-   gridContainer.setAttribute("style", `grid-template-columns:repeat(${user}, 1fr); grid-template-rows:repeat(${user};, 1fr)`)
+   let width = 960;
+   let user = parseInt(prompt("Enter the size of grid you want (max 100): "));
+   let size = width/user;
+   gridContainer.setAttribute("style", `grid-template-columns:repeat(${user}, 1fr); grid-template-rows:repeat(${user}, 1fr); width:${size}px ;`)
    if (user > 100 || user <= 0) {
      return;
 }
