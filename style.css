@@ -1,10 +1,8 @@
-/* css styling on the body brought the main-container to the center  */
 body {
   display: flex;
   justify-content: center;
 }
 
-/* By adding a width and a height of 100vh and 100vw, it expanded to the entire view-port's width and height. */
 .main-container {
   width: 100vw;
   border: 5px solid maroon;
@@ -14,14 +12,12 @@ body {
   align-items: center;
 }
 
-/* Making it flex and flex-wrap so the gridBoxes don't overflow. */
 .gridContainer {
   display: grid;
   justify-content: center;
   align-items: center;
 }
 
-/* Grid Boxes styling */
 .boxes {
   border-radius: 12%;
   width: 25px;
