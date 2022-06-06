@@ -1,70 +1,63 @@
-// const grid = document.getElementById('grid').addEventListener('click', () => {
-//     makeBlocks()
-// });
-
-// const colourChange = document.getElementById('boxParent').addEventListener('mouseenter', changeColour)
-
-// function makeBlocks() {
-//     let number = prompt("How many rows and columns would you like?");
-//     let n = parseInt(number)
-//     for (let i = 0; i < n; i++) {
-//         let row = document.createElement('div');
-//         row.className = "row";
-//         for (let j = 0; j < n; j++) {
-//             let box = document.createElement('div');
-//             box.className = "box";
-//             row.appendChild(box);
-//         }                
-//         document.getElementById('boxParent').appendChild(row);
-//     }
-// }
-
-// function changeColour(e){
-//     if (e.target === 'boxParent'){
-//         const grid = document.querySelectorAll('.box');
-//         grid.forEach((gridElem) => gridElem.style.backgroundColor = 'red');
-//     }
-//     console.log(e.target)
-// }
-
-// let boxParent = document.querySelector('#boxParent')
-// console.log(boxParent.parentNode.parentNode)
-
-// function rgb(){
-//     let o = Math.round, r = Math.random, s = 255;
-//     return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
-// }
+const gridContainer = document.querySelector(".gridContainer");
+const button = document.querySelector(".button");
+const eraser = document.querySelector(".eraser");
+const rgb = document.querySelector(".rgb");
+const black = document.querySelector(".black");
 
 
+button.addEventListener('click', () => {
+   newGrid()
+});
 
+eraser.addEventListener('click', () => {
+   gridContainer.removeEventListener('mouseover', () => {
+      changeToBlack();
+      RGB();
+   })
+   gridContainer.addEventListener('mouseover', changeToWhite);
+})
 
-const container = document.querySelector('#container');
-const grid = document.querySelector('#container');
+black.addEventListener('click', () => {
+   gridContainer.removeEventListener('mouseover', () => {
+      RGB();
+      changeToWhite();
+   })
+   gridContainer.addEventListener('mouseover', changeToBlack);
+})
 
-function makeGrid(){
-    for (let i= 0; i < 256; i++){
-       let grid = document.createElement('div');
-       grid.classList.add('grid')
-       grid.addEventListener('mouseenter', changeToBlack)
-       container.appendChild(grid);
-    }
-}
-makeGrid()
+rgb.addEventListener('click', () => {
+   gridContainer.removeEventListener('mouseover', () => {
+      changeToBlack();
+      changeToWhite();
+   })
+   gridContainer.addEventListener('mouseover', RGB);
+})
+
 
 function changeToBlack(e){
     e.target.style.backgroundColor = 'black';
  }
 
+ function changeToWhite(e){
+   e.target.style.backgroundColor = 'white';
+}
+
+function RGB(e){
+    let o = Math.round, r = Math.random, s = 255;
+    let rgb = 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+   e.target.style.backgroundColor = `${rgb}`
+}
+
+function newGrid(){
+   gridContainer.textContent = ' '
+   let user = prompt("Enter the size of grid you want (max 100): ");
+   gridContainer.setAttribute("style", `grid-template-columns:repeat(${user}, 1fr); grid-template-rows:repeat(${user};, 1fr)`)
+   if (user > 100 || user <= 0) {
+     return;
+}
+   for (let i= 0; i < (user * user); i++){
+      gridContainer.innerHTML += '<div class="boxes"></div>'
+   }
+}
 
 
-//add eventlistener to grid divs with a mouseenter effect
-// change the divs background color using JS
-
-
-//Add button with prompt asking for number ofsquares per side
-//must be 960px wide but max user input to 100
-
-
-//change to a completelty random RGB value
-
-//each pass add another 10%of black to it
